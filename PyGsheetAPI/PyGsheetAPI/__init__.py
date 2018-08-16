@@ -4,7 +4,9 @@ from googleapiclient import discovery
 from httplib2 import Http
 from oauth2client import client, file, tools
 
-class PyGsheetAPI():
+# Initializes Gsheet API service and authorization
+
+class PyGsheetAPI:
   def __init__(self, scope):
     self.store = file.Storage('config/credentials.json')
     self.creds = self.store.get()
