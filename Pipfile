@@ -5,8 +5,7 @@ name = "pypi"
 
 [packages]
 flask = "*"
-"oauth2client" = "*"
-google-api-python-client = "*"
+PyGsheetAPI = {path = "./PyGsheetAPI"}
 
 [dev-packages]
 
