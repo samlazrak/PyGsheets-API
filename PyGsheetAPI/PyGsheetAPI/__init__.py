@@ -4,10 +4,8 @@ from googleapiclient import discovery
 from httplib2 import Http
 from oauth2client import client, file, tools
 
-scope = "https://www.googleapis.com/auth/spreadsheets"
-
 class PyGsheetAPI():
-  def __init__(self):
+  def __init__(self, scope):
     self.store = file.Storage('config/credentials.json')
     self.creds = self.store.get()
     if not self.creds or self.creds.invalid:

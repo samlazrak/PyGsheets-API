@@ -4,7 +4,7 @@ from flask import Flask
 from PyGsheetAPI import PyGsheetAPI
 from config import secrets
 
-PyGsheetAPI = PyGsheetAPI()
+PyGsheetAPI = PyGsheetAPI(secrets.scope)
 
 def create_app(test_config=None):
   app = Flask(__name__, instance_relative_config=True)
