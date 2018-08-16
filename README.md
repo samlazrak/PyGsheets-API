@@ -11,3 +11,8 @@ Example usages:
 3. Using google-sheets as a backup for data sources
 
 Built using Flask and google-api-python-client.
+
+Usage: 
+
+1. Create an Oauth credential as detailed here: https://developers.google.com/sheets/api/quickstart/python
+2. Create your own secrets.py from the example
