@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from googleapiclient import discovery
 from httplib2 import Http
 from oauth2client import client, file, tools
@@ -14,3 +12,7 @@ class PyGsheetAPI:
       self.flow = client.flow_from_clientsecrets('credentials.json', scope)
       self.creds = tools.run_flow(self.flow, self.store)
     self.service = discovery.build('sheets', 'v4', http=self.creds.authorize(Http()))
+    self.spreadsheets = list()
+  
+  def read_single_range(self, spreadsheet):
+    self.service.spreadsheets().values().get(spreadsheetId=spreadsheet.id, range=spreadsheet.range).execute()

@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from PyGsheetAPI import PyGsheetAPI
+from PyGsheetAPI import PyGsheetAPI, spreadsheet
 from config import secrets
 
 PyGsheetAPI = PyGsheetAPI(secrets.scope)
@@ -10,7 +10,6 @@ def create_app(test_config=None):
   app = Flask(__name__, instance_relative_config=True)
   app.config.from_mapping(
     SECRET_KEY='dev',
-    DATABASE=os.path.join(app.instance_path, 'sheetflask.sqlite'),
   )
   
   if test_config is None:
@@ -23,16 +22,10 @@ def create_app(test_config=None):
   except OSError:
     pass
   
-  # Database
-  from . import db
-  db.init_app(app)
-  
   @app.route('/')
   def test():
-    result = PyGsheetAPI.service.spreadsheets().values().get(spreadsheetId=secrets.spreadsheet_id,
-                                                             range=secrets.range_name).execute()
-    numRows = result.get('values') if result.get('values') is not None else 0
-    print('{0} rows retrieved'.format(numRows))
-    return '{0} rows retrieved'.format(numRows)
+    PyGsheetAPI.spreadsheets.append(spreadsheet(secrets.spreadsheet_id, secrets.range_name,
+                                                secrets.value_input_option))
+    print(PyGsheetAPI.read_single_range(PyGsheetAPI.spreadsheets[0]))
   
   return app
